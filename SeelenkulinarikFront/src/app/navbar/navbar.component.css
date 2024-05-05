@@ -4,7 +4,7 @@
     width: 100%;
     z-index: 1000;
     background-color: #c0d7df;
-    height: var(--navbarHeight);
+    height: var(--navbar-height);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     display: flex; /* Use flexbox */
     justify-content: space-between; /* Space items evenly */
@@ -13,6 +13,7 @@
 .navbar-brand {
     font-size: 1.5rem;
     font-weight: bold;
+    text-decoration: none;
 }
 
 .navbar-nav {
