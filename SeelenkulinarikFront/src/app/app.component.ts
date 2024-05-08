@@ -6,11 +6,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { CardService } from './card.service';
 
 @Component({
-    selector: 'app-root',
-    standalone: true,
-    templateUrl: './app.component.html',
-    styleUrl: './app.component.css',
-    imports: [RouterOutlet, NavbarComponent]
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css',
 })
 export class AppComponent {
   divs = Array(3).fill(0).map((x, i) => i);
