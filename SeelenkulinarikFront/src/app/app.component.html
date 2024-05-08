@@ -10,39 +10,15 @@
 </div>
 
 <div class="info-section">
-    <div class="card active">
-        <img src="../assets/Img/Cards/Olpererer.webp" class="card-mainImg"/>
+    <div class="card active" *ngFor="let card of cards">
+        <img src="{{ card.ImageURI }}" class="card-mainImg"/> <!-- ../assets/Img/Cards/Olpererer.webp -->
         <div class="card-mainDiv">
-            <h1>Olperer</h1>
-            <p>Pellentesque sagittis nunc vitae lacus volutpat sodales. Maecenas convallis porta imperdiet. Nullam non venenatis leo, in tristique magna. Fusce condimentum mauris egestas arcu facilisis malesuada. Nullam aliquet felis id bibendum rhoncus. Integer bibendum maximus massa, et condimentum orci vestibulum vel. Duis pulvinar, eros quis rutrum fringilla, nulla leo aliquet magna, pulvinar iaculis nisi purus sed orci. Mauris nec neque non lacus dictum condimentum. Vivamus ut quam in ex euismod rhoncus. Nunc faucibus dignissim auctor. Nunc ut mollis ex. Quisque mollis sodales augue, at hendrerit neque pulvinar sit amet. Etiam eget sem dictum, condimentum purus non, blandit orci.</p>
-            <a><img src="assets/Img/Arrow-Right.png"/>folgen sie der spur</a>
+            <h1>{{ card.Title }}</h1>
+            <p>{{ card.Body }}</p>
         </div>
     </div>
-    <div class="card">
-        <!-- @* Second card infos (can hold any elements) *@ -->
-        <img src="../assets/Img/Cards/Serles.webp" class="card-mainImg" />
-        <div class ="card-mainDiv">
-            <h1>Serles</h1>
-            <p>Integer et tellus dolor. Suspendisse lectus dui, consequat eu vulputate ac, venenatis in nisl. Fusce nec ullamcorper justo, eu pulvinar ipsum. Vivamus et efficitur massa. Fusce iaculis nulla quis ipsum fringilla venenatis. Vivamus sed luctus orci. Sed ut orci sed ligula rhoncus ultricies sit amet quis nulla. Pellentesque congue, mauris quis elementum faucibus, mi leo posuere sapien, sed iaculis nisl purus condimentum nisl. Etiam egestas nunc eu arcu bibendum, vitae vulputate leo pellentesque. In rhoncus vestibulum arcu non molestie. Integer vitae massa eget mauris egestas tincidunt venenatis sit amet nibh. Integer in auctor erat. Proin turpis enim, faucibus in ex vitae, varius ultrices urna. Aliquam laoreet tempor ipsum sed efficitur. Sed pulvinar metus id vestibulum viverra.</p>
-            <a href="/at/4-wilder-kaiser">folgen sie der spur</a>
-        </div>
-    </div>
-    <div class="card">
-        <!-- @* Second card infos (can hold any elements) *@ -->
-        <img src="../assets/Img/Cards/Wilder Kaiser.webp" class="card-mainImg" />
-        <div class="card-mainDiv">
-            <h1>Wilder Kaiser</h1>
-            <p>Quisque massa lectus, semper in est ac, vehicula elementum sapien. Curabitur dapibus semper velit eleifend rutrum. Vestibulum a enim elit. Nunc fringilla dui dolor, quis finibus mauris ultricies non. Nunc auctor lacus felis, ut euismod nisl tempor et. Sed quis erat ultrices, tincidunt nunc ac, luctus enim. Nullam suscipit ipsum ut nunc convallis convallis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Pellentesque vitae nulla massa. Integer in auctor ante, eget tempus metus. Suspendisse lorem dui, tincidunt sit amet dapibus nec, aliquam quis magna.</p>
-            <a href="/at/4-wilder-kaiser">folgen sie der spur</a>
-        </div>
-    </div>
-    <!-- @* Add any amount of cards *@ -->
     <div class="arrow left-arrow" (click)="previousSection()">&#10094;</div>
     <div class="arrow right-arrow" (click)="nextSection()">&#10095;</div>
 </div>
 
-<footer class="border-top footer text-muted">
-    <div class="container">
-        &copy; 2024 - Seelenkulinarik.at - <a>Privacy</a>
-    </div>
-</footer>
+<app-footer></app-footer>

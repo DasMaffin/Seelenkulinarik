@@ -12,6 +12,6 @@ export class CardService {
   constructor(private http: HttpClient) { }
 
   public getCards(): Observable<Card[]>{
-    return this.http.get<Card[]>(`${this.apiServerUrl}/book/all`);
+    return this.http.get<Card[]>(`${this.apiServerUrl}/card/all`);
   }
 }
