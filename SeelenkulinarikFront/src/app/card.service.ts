@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CardService {
-  private apiServerUrl = 'http://193.34.77.221:8080';
+  private apiServerUrl = 'http://localhost:8080';
 
   constructor(private http: HttpClient) { }
 

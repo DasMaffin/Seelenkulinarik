@@ -15,6 +15,10 @@ public class CardService {
         this.cardRepo = _cardRepo;
     }
 
+    public Card AddCard(Card card){
+        return cardRepo.save(card);
+    }
+
     public Iterable<Card> findAllCards(){
         return cardRepo.findAll();
     }
