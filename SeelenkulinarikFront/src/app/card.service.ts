@@ -15,8 +15,8 @@ export class CardService {
     return this.http.post<Card>(`${this.apiServerUrl}/card/add`, card).pipe(catchError(this.handleError));
   }
 
-  public updateCard(book: Card): Observable<Card>{
-    return this.http.put<Card>(`${this.apiServerUrl}/card/update`, book);
+  public updateCard(card: Card): Observable<Card>{
+    return this.http.put<Card>(`${this.apiServerUrl}/card/update`, card);
   }
 
   public deleteCard(Id: String): Observable<void>{

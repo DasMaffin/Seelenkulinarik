@@ -11,7 +11,8 @@ import { CardService } from '../card.service';
 })
 export class BackendComponent {
   // Just used as constant values.
-  public titleColumn: string = 'Title;'
+  public titleColumn: string = 'Title;';
+  public bodyColumn: string = 'Body';
 
   // for editing cards
   public cards: Card[] = [];
@@ -34,12 +35,15 @@ export class BackendComponent {
     button.type = 'button';
     button.style.display = 'none';
     button.setAttribute('data-toggle', 'modal');
-    button.setAttribute('data-target', '#' + mode + 'BookModal');
-    this.editCard = card;
-    this.deleteCard = card;
+    button.setAttribute('data-target', '#' + mode + 'CardModal');
+    this.editCard, this.deleteCard = card;
 
     container?.appendChild(button);
     button.click();
+
+    console.log(container);
+    console.log(button);
+    console.log(card);
   }
 
   sortTable(column: string) {
@@ -50,7 +54,7 @@ export class BackendComponent {
       this.sortDirection = 1; // Reset the sorting direction to ascending
     }
   
-    // Sort the books array based on the selected column and direction
+    // Sort the cardss array based on the selected column and direction
     this.cards.sort((a, b) => {
       // Check for empty fields
       if (!a[column] && !b[column]) {
@@ -82,9 +86,9 @@ export class BackendComponent {
   }
 
   public onAddCard(addForm: NgForm): void{
-    document.getElementById('add-book-form')?.click();
+    document.getElementById('add-card-form')?.click();
 
-    this.cleanUp('AddBookModalBody');
+    this.cleanUp('AddCardModalBody');
 
     this.cardService.addCard(addForm.value).subscribe(
     (response: Card) => {
@@ -112,7 +116,7 @@ export class BackendComponent {
     this.cardService.deleteCard(Id).subscribe(
       ()=>{
         this.getCards();
-        alert("Book has been deleted!");
+        alert("Card has been deleted!");
       },
       (error: HttpErrorResponse) => {
         alert(error.message);

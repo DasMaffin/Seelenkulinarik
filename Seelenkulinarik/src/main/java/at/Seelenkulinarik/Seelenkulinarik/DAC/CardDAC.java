@@ -21,13 +21,13 @@ public class CardDAC {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<Iterable<Card>> getAllBooks(){
+    public ResponseEntity<Iterable<Card>> getAllCards(){
         Iterable<Card> Cards = cardService.findAllCards();
         return new ResponseEntity<>(Cards, HttpStatus.OK);
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Card> addBook(@RequestBody Card _card){
+    public ResponseEntity<Card> addCard(@RequestBody Card _card){
         // _card = fillEmptyFields(_card);
         Card card = cardService.AddCard(_card);
         return new ResponseEntity<>(card, HttpStatus.OK);
