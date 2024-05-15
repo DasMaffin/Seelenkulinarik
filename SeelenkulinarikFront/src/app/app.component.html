@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 <router-outlet></router-outlet>
 
-<div class="head-section">
+<div class="head-section" #scrollDiv>
     <img src="../assets/Img/profile-pic.webp"/>
     <div class="profile-name">
         <h1>Seelenkulinarik</h1>
@@ -9,7 +9,7 @@
     </div>
 </div>
 
-<div class="info-section">
+<div class="info-section" #scrollDiv>
     <div class="card active" *ngFor="let card of cards">
         <img src="{{ card.ImageURI }}" class="card-mainImg"/> <!-- ../assets/Img/Cards/Olpererer.webp -->
         <div class="card-mainDiv">
@@ -17,8 +17,12 @@
             <p>{{ card.Body }}</p>
         </div>
     </div>
-    <div class="arrow left-arrow" (click)="previousSection()">&#10094;</div>
-    <div class="arrow right-arrow" (click)="nextSection()">&#10095;</div>
+    <!-- <div class="background left-background"></div> -->
+    <div class="arrow left-arrow" (click)="previousSection()">
+        <div class="arrow-text">&#10094;</div>
+    </div>
+    <div class="arrow right-arrow" (click)="nextSection()">
+        <div class="arrow-text">&#10095;</div>
+    </div>
 </div>
-
 <app-footer></app-footer>

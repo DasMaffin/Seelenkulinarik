@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, ElementRef, HostListener, QueryList, ViewChildren } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from "./navbar/navbar.component";
 import { Card } from './card';
@@ -11,13 +11,44 @@ import { CardService } from './card.service';
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  divs = Array(3).fill(0).map((x, i) => i);
+  @ViewChildren('scrollDiv') divs!: QueryList<ElementRef>;
+  divElements: HTMLElement[] = [];
   cards: Card[] = [];
   
   constructor(private cardService: CardService){}
 
   ngOnInit(): void{
     this.getCards();
+  }
+
+  ngAfterViewInit(){
+    this.divElements = this.divs.map(div => div.nativeElement);
+  }
+
+  @HostListener('wheel', ['$event'])
+  onWheel(event: WheelEvent) {
+    event.preventDefault(); // Prevent default scrolling behavior
+
+    const deltaY = Math.sign(event.deltaY); // Get direction of scroll
+    const currentIndex = this.getCurrentIndex();
+
+    if (deltaY === -1 && currentIndex > 0) {
+      this.scrollDivIntoView(currentIndex - 1);
+    } else if (deltaY === 1 && currentIndex < this.divElements.length - 1) {
+      this.scrollDivIntoView(currentIndex + 1);
+    }
+  }
+
+  getCurrentIndex(): number {
+    const rect = this.divElements.map(div => div.getBoundingClientRect());
+    const currentIndex = rect.findIndex(r => r.top >= 0 && r.top < window.innerHeight);
+    return currentIndex >= 0 ? currentIndex : 0;
+  }
+
+  scrollDivIntoView(index: number) {
+    const navbarHeight = 60; // Height of the navbar
+    const scrollPosition = this.divElements[index].getBoundingClientRect().top - navbarHeight;
+    window.scrollBy({ top: scrollPosition, behavior: 'smooth' });
   }
 
   public getCards(): void{
