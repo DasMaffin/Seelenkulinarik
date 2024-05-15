@@ -10,7 +10,7 @@
 </div>
 
 <div class="info-section" #scrollDiv>
-    <div class="card active" *ngFor="let card of cards">
+    <div class="card active" *ngFor="let card of cards" #card>
         <img src="{{ card.ImageURI }}" class="card-mainImg"/> <!-- ../assets/Img/Cards/Olpererer.webp -->
         <div class="card-mainDiv">
             <h1>{{ card.Title }}</h1>
@@ -18,11 +18,14 @@
         </div>
     </div>
     <!-- <div class="background left-background"></div> -->
-    <div class="arrow left-arrow" (click)="previousSection()">
+    <div class="arrow left-arrow" (click)="previousSection()" *ngIf="cards.length > 1">
         <div class="arrow-text">&#10094;</div>
     </div>
-    <div class="arrow right-arrow" (click)="nextSection()">
+    <div class="arrow right-arrow" (click)="nextSection()" *ngIf="cards.length > 1">
         <div class="arrow-text">&#10095;</div>
     </div>
 </div>
-<app-footer></app-footer>
+
+<div class="footer-section" #scrollDiv>
+    <app-footer></app-footer>
+</div>

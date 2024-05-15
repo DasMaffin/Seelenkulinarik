@@ -41,7 +41,10 @@ export class AppComponent {
 
   getCurrentIndex(): number {
     const rect = this.divElements.map(div => div.getBoundingClientRect());
-    const currentIndex = rect.findIndex(r => r.top >= 0 && r.top < window.innerHeight);
+    const currentIndex = rect.findIndex(r =>
+      {
+        return r.top >= 0 && r.top < window.innerHeight
+      });
     return currentIndex >= 0 ? currentIndex : 0;
   }
 
