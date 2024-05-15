@@ -1,1 +1,138 @@
-<p>backend works!</p>
+<!--CSS: https://bootdey.com/snippets/view/bs4-contact-cards-->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin-top: 0; padding-top: 0;">
+    <a class="navbar-brand" style="color:white;">Biblio</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarColor02">
+       <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+             <a class="nav-link btn" (click)="onOpenModal(null, 'add')">Buch hinzufügen<span class="sr-only">(current)</span></a>
+          </li>
+       </ul>
+    </div>
+  </nav>
+  <div class="container" id="main-container">
+     <br>
+      <div class="row">
+        
+           <table id = sortableTable>
+              <thead>
+                 <tr>
+                    <th (click)="sortTable(titleColumn)">
+                       Titel 
+                       <span class="arrow-stack">
+                          <span *ngIf="sortColumn === titleColumn && sortDirection === 1" style="vertical-align: middle;">&#9650;</span>
+                          <span *ngIf="sortColumn === titleColumn && sortDirection === -1" style="vertical-align: middle;">&#9660;</span>
+                          <span *ngIf="sortColumn !== titleColumn">&#9650;</span>
+                          <span *ngIf="sortColumn !== titleColumn">&#9660;</span>
+                       </span>
+                    </th>
+                    <th>Optionen</th>
+                 </tr>
+              </thead>
+              <tbody>
+                 <tr *ngFor="let card of cards">
+                   <td class="truncate">{{ card.Title }}</td>
+                   <td>
+                    <div class="float-left btn-group btn-group-sm">
+                       <a  (click)="onOpenModal(card, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+                       <a  (click)="onOpenModal(card, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-times"></i></a>
+                    </div>
+                   </td>
+                 </tr>
+               </tbody>
+           </table>
+        </div>
+      </div>
+  
+  <!-- Add Card Modal -->
+  <div class="modal fade" id="addCardModal" tabindex="-1" role="dialog" aria-labelledby="addCardModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="addCardModalLabel">Buch hinzufügen</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body" id="AddCardModalBody">
+            <form #addForm="ngForm" (ngSubmit)="onAddCard(addForm)">
+            <div class="form-group">
+               <label for="isbn">ISBN</label>
+               <input type="text" ngModel name="ISBN" class="form-control" id="isbn" placeholder="987-0-00-000000-0" pattern="[0-9\s\-]*" required>
+            </div>
+            <div class="form-group">
+               <label for="title">Titel</label>
+               <input type="text" ngModel name="Title" class="form-control" id="title" placeholder="Titel" required>
+            </div>
+            <div class="modal-footer">
+               <button type="button" id="add-card-form" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+               <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Änderungen speichern</button>
+            </div>
+            </form>
+         </div>
+      </div>
+    </div>
+    </div>
+  
+  <!-- Edit Modal -->
+  <div class="modal fade" id="editCardModal" tabindex="-1" role="dialog" aria-labelledby="cardEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+       <div class="modal-content">
+          <div class="modal-header">
+             <h5 class="modal-title" id="updateCardModalLabel">Buch Berabeiten: {{editCard?.Title}}</h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+             </button>
+          </div>
+          <div class="modal-body" id="EditCardModalBody">
+             <form #editForm="ngForm">
+              <div class="form-group">
+                    <label for="ISBN">ISBN</label>
+                    <input type="text" ngModel="{{editCard?.Title}}" name="ISBN" class="form-control" id="ISBN" placeholder="987-0-00-000000-0" pattern="[0-9\s\-]*" required>
+                </div>
+                <div class="form-group">
+                   <label for="Title">Titel</label>
+                   <input type="text" ngModel="{{editCard?.Title}}" name="Title" class="form-control" id="Title" aria-describedby="emailHelp" placeholder="Titel" required>
+                </div>
+  
+                <div class="modal-footer">
+                  <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Schließen</button>
+                  <button [disabled]="editForm.invalid" (click)="onEditCard(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Änderungen speichern</button>
+               </div>
+             </form>
+          </div>
+       </div>
+    </div>
+  </div>
+  
+  <!-- Delete Modal -->
+  <div class="modal fade" id="deleteCardModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+       <div class="modal-content">
+          <div class="modal-header">
+             <h5 class="modal-title" id="deleteModelLabel">Delete Card</h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+             </button>
+          </div>
+          <div class="modal-body">
+             <p>Are you sure you want to delete the card: {{deleteCard?.Title}}?</p>
+             <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button (click)="deleteCard != null && deleteCard.Id != null && onDeleteCard(deleteCard.Id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+             </div>
+          </div>
+       </div>
+    </div>
+  </div>
+  
+  <!-- Notification for no cards -->
+  <div *ngIf="cards?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+  <div class="alert alert-info" role="alert">
+    <h4 class="alert-heading">NO BOOKS!</h4>
+    <p>No Cards were found.</p>
+  </div>
+  </div>
