@@ -7,13 +7,15 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FooterComponent } from './footer/footer.component';
 import { BackendComponent } from './backend/backend.component';
+import { IndexComponent } from './index/index.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     FooterComponent,
-    BackendComponent
+    BackendComponent,
+    IndexComponent
   ],
   imports: [
     BrowserModule,
