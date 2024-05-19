@@ -1,3 +1,7 @@
+body{    
+    margin-top: var(--navbar-height);
+}
+
 .head-section {
     background-image: url('../../assets/Img/Main Background Mountains.webp');
     background-size: cover;
