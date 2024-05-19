@@ -22,4 +22,16 @@ public class CardService {
     public Iterable<Card> findAllCards(){
         return cardRepo.findAll();
     }
+
+    public Card updateCard(Card card){
+        return cardRepo.save(card);
+    }
+
+    public Card findCardById(int Id){
+        return cardRepo.findCardById(Id).orElseThrow(); // () => CardNotFoundException("");
+    }
+
+    public void deleteCard(int Id){
+        cardRepo.deleteCardById(Id);
+    }
 }

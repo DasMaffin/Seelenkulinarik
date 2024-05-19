@@ -9,6 +9,7 @@ import { FooterComponent } from './footer/footer.component';
 import { BackendComponent } from './backend/backend.component';
 import { IndexComponent } from './index/index.component';
 import { FormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { FormsModule } from '@angular/forms';
     NavbarComponent,
     FooterComponent,
     BackendComponent,
-    IndexComponent
+    IndexComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

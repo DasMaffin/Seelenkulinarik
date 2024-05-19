@@ -3,6 +3,8 @@ import { Card } from '../card';
 import { NgForm } from '@angular/forms'
 import { HttpErrorResponse } from '@angular/common/http';
 import { CardService } from '../card.service';
+import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-backend',
@@ -23,10 +25,18 @@ export class BackendComponent {
   sortColumn: string = ''; // Store the currently sorted column
   sortDirection: number = 1; // Store the sorting direction (1 for ascending, -1 for descending)
 
-  constructor(private cardService: CardService){}
+  constructor(private cardService: CardService, private authService: AuthService, private router: Router){}
 
   ngOnInit(): void {
+    console.log(this.authService.isLoggedIn());
+    if(!this.authService.isLoggedIn()){
+      this.router.navigate(['/login']);
+    }
     this.getCards();
+  }
+  
+  logout() {
+    this.authService.logout();
   }
 
   public onOpenModal(card: Card | null | undefined, mode: string): void{
@@ -40,10 +50,6 @@ export class BackendComponent {
 
     container?.appendChild(button);
     button.click();
-
-    console.log(container);
-    console.log(button);
-    console.log(card);
   }
 
   sortTable(column: string) {
