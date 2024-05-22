@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Card } from '../card';
 import { NgForm } from '@angular/forms'
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { CardService } from '../card.service';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-backend',
@@ -21,35 +22,46 @@ export class BackendComponent {
   public editCard!: Card | null | undefined;
   public deleteCard!: Card | null  | undefined;
 
+  selectedFile!: File;
+  images: string[] = [];
+
   // for sorting the table with all cards
   sortColumn: string = ''; // Store the currently sorted column
   sortDirection: number = 1; // Store the sorting direction (1 for ascending, -1 for descending)
 
-  constructor(private cardService: CardService, private authService: AuthService, private router: Router){}
+  constructor(private cardService: CardService,
+     private authService: AuthService,
+      private router: Router,
+       private http: HttpClient){}
 
   ngOnInit(): void {
-    console.log(this.authService.isLoggedIn());
     if(!this.authService.isLoggedIn()){
       this.router.navigate(['/login']);
     }
-    this.getCards();
+    this.getCards();    
+    this.loadImages();
   }
   
   logout() {
     this.authService.logout();
   }
 
-  public onOpenModal(card: Card | null | undefined, mode: string): void{
+  public onOpenModal(card: Card | null | undefined, mode: string): void {
     const container = document.getElementById('main-container');
+    this.editCard = card;
+    this.deleteCard = card;
+    this.createModalOpenButton(container, mode + 'CardModal').click();
+  }
+
+  private createModalOpenButton(container: HTMLElement | null, mode: string): HTMLButtonElement{
     const button = document.createElement('button');
     button.type = 'button';
     button.style.display = 'none';
     button.setAttribute('data-toggle', 'modal');
-    button.setAttribute('data-target', '#' + mode + 'CardModal');
-    this.editCard, this.deleteCard = card;
-
+    button.setAttribute('data-target', '#' + mode);    
     container?.appendChild(button);
-    button.click();
+
+    return button;
   }
 
   sortTable(column: string) {
@@ -107,7 +119,6 @@ export class BackendComponent {
   }
 
   public onEditCard(card: Card): void{
-    console.log(card);
     this.cardService.updateCard(card).subscribe(
     (response: Card) => {
       console.log(response);
@@ -146,5 +157,50 @@ export class BackendComponent {
         }
       });
     }
+  }
+
+  public openImageModal(): void {
+    const container = document.getElementById('main-container');
+    this.createModalOpenButton(container, 'imageUploadModal').click();
+
+    // Hide addCardModal
+  }
+
+  public reopenAddCardModal(): void {
+    const container = document.getElementById('main-container');
+    this.createModalOpenButton(container, 'addCardModal').click();
+
+    // Hide imageUploadModal
+  }
+
+  public onImageSelected(event: any): void {
+    this.selectedFile = event.target.files[0];
+  }
+
+  public uploadImage(): void {
+    const uploadData = new FormData();
+    uploadData.append('image', this.selectedFile, this.selectedFile.name);
+
+    this.http.post('/misc/upload', uploadData)
+      .subscribe(response => {
+        this.loadImages();
+      }, error => {
+        alert(error.message);
+      });
+  }
+
+  public loadImages(): void {
+    this.http.get<string[]>('/misc/images')
+      .subscribe(response => {
+        this.images = response;
+      }, error => {
+        alert(error.message);
+      });
+  }
+
+  public selectImage(imageUrl: string): void {
+    // Handle the logic to use the selected image URL in the add card modal
+    console.log(imageUrl);
+    this.reopenAddCardModal();
   }
 }

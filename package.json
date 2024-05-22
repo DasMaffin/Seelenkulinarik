@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "@types/uuid": "^9.0.8",
+    "jquery": "^3.7.1",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "@types/jquery": "^3.5.30"
+  }
+}
