@@ -105,7 +105,7 @@
          <div *ngIf="images && images.length > 0">
            <h5>Uploaded Images</h5>
            <div *ngFor="let image of images" (click)="selectImage(image)" style="cursor: pointer;">
-             <img [src]="image" style="width: 100px; height: auto;" />
+             <img src="../assets/UserImages/{{image}}" style="width: 100px; height: auto;" />
            </div>
          </div>
        </div>

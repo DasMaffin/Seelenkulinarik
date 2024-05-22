@@ -26,3 +26,4 @@ replay_pid*
 .vscode
 Seelenkulinarik/src/main/resources/application.properties
 SeelenkulinarikFront/src/temp.css
+UserImages/*

@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Card } from '../card';
-import { NgForm } from '@angular/forms'
+import { NgForm } from '@angular/forms';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { CardService } from '../card.service';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
-import * as $ from 'jquery';
+import { MiscService } from '../misc.service';
 
 @Component({
   selector: 'app-backend',
@@ -31,8 +31,9 @@ export class BackendComponent {
 
   constructor(private cardService: CardService,
      private authService: AuthService,
-      private router: Router,
-       private http: HttpClient){}
+     private miscService: MiscService,
+     private router: Router,
+     private http: HttpClient){}
 
   ngOnInit(): void {
     if(!this.authService.isLoggedIn()){
@@ -163,14 +164,14 @@ export class BackendComponent {
     const container = document.getElementById('main-container');
     this.createModalOpenButton(container, 'imageUploadModal').click();
 
-    // Hide addCardModal
+    // TODO Hide addCardModal
   }
 
   public reopenAddCardModal(): void {
     const container = document.getElementById('main-container');
     this.createModalOpenButton(container, 'addCardModal').click();
 
-    // Hide imageUploadModal
+    // TODO Hide imageUploadModal
   }
 
   public onImageSelected(event: any): void {
@@ -178,24 +179,30 @@ export class BackendComponent {
   }
 
   public uploadImage(): void {
-    const uploadData = new FormData();
-    uploadData.append('image', this.selectedFile, this.selectedFile.name);
-
-    this.http.post('/misc/upload', uploadData)
-      .subscribe(response => {
-        this.loadImages();
-      }, error => {
-        alert(error.message);
-      });
+    this.miscService.UploadImage(this.selectedFile).subscribe(
+      response => {
+        if (typeof response === 'string') {
+          console.log('Upload successful: ', response);
+        } else {
+          console.log('Unexpected response type: ', response);
+        }
+      },
+      error => {
+        console.error('Upload error: ', error);
+      }
+    );
   }
 
   public loadImages(): void {
-    this.http.get<string[]>('/misc/images')
-      .subscribe(response => {
-        this.images = response;
-      }, error => {
-        alert(error.message);
-      });
+    this.miscService.getImages().subscribe(
+      response => {
+        this.images = JSON.parse(response);
+        console.log(this.images);
+      },
+      error => {
+        console.error(error);
+      }
+    );
   }
 
   public selectImage(imageUrl: string): void {
