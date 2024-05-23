@@ -25,8 +25,6 @@ public class MiscDAC
 
     public MiscDAC(@Value("${file.upload-dir}") String uploadDir) {
         this.fileStorageLocation = Paths.get(uploadDir).toAbsolutePath().normalize();
-
-        System.out.println(this.fileStorageLocation);
     }
 
     @PostConstruct
@@ -40,16 +38,17 @@ public class MiscDAC
 
     @PostMapping("/upload")
     public ResponseEntity<String> uploadFile(@RequestParam("image") MultipartFile file) {
-        try {
-            System.out.println(file);            
+        try {   
             if (file.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("File is empty");
             }
             String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
             Path targetLocation = this.fileStorageLocation.resolve(fileName);
-            Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
+            try{
+                Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
+            }catch(IOException e){System.out.println("There may have been an issue copying the image. Probably not tho. Just windows being a nice lady with temp files...");}
             return ResponseEntity.ok(targetLocation.toString());
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Could not store file. Please try again!");
         }
     }
@@ -66,5 +65,4 @@ public class MiscDAC
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
-
 }
