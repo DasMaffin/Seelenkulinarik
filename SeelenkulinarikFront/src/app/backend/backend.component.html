@@ -100,13 +100,16 @@
          </button>
        </div>
        <div class="modal-body">
-         <input type="file" (change)="onImageSelected($event)">
+         <input type="file" (change)="onImageSelected($event)" required>
          <button class="btn btn-primary" (click)="uploadImage()">Upload</button>
          <div *ngIf="images && images.length > 0">
+          
            <h5>Uploaded Images</h5>
-           <div *ngFor="let image of images" (click)="selectImage(image)" style="cursor: pointer;">
-             <img src="../assets/UserImages/{{image}}" style="width: 100px; height: auto;" />
-           </div>
+           <div class="image-container">            
+              <div *ngFor="let image of images" (click)="selectImage(image)" style="cursor: pointer;">
+                <img src="http://localhost:8080/UserImages/{{image}}" />
+              </div>
+            </div>
          </div>
        </div>
      </div>

@@ -23,6 +23,7 @@ export class BackendComponent {
   public deleteCard!: Card | null  | undefined;
 
   selectedFile!: File;
+  selectedImage: string = "";
   images: string[] = [];
 
   // for sorting the table with all cards
@@ -186,6 +187,8 @@ export class BackendComponent {
         } else {
           console.log('Unexpected response type: ', response);
         }
+
+        this.loadImages();
       },
       error => {
         console.error('Upload error: ', error);
@@ -207,6 +210,7 @@ export class BackendComponent {
 
   public selectImage(imageUrl: string): void {
     // Handle the logic to use the selected image URL in the add card modal
+    this.selectedImage = imageUrl;
     console.log(imageUrl);
     this.reopenAddCardModal();
   }

@@ -60,10 +60,6 @@ public class MiscDAC
             List<String> fileNames = Files.list(this.fileStorageLocation)
                     .map(path -> path.getFileName().toString())
                     .collect(Collectors.toList());
-                // for(int i = 0; i < fileNames.size(); i++){
-                //     fileNames.set(i, this.fileStorageLocation + "\\" + fileNames.get(i));
-                // }
-
 
             return ResponseEntity.ok(fileNames);
         } catch (IOException ex) {

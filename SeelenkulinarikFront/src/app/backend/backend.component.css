@@ -126,3 +126,23 @@ table {
     margin-right: auto;
     margin-left: auto;
   }
+
+  .image-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.image-container > div {
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.image-container > div:last-child {
+    margin-right: 0;
+}
+
+.image-container img {
+    width: 100px;
+    height: auto; /* Let the height adjust to maintain the aspect ratio */
+}
+
