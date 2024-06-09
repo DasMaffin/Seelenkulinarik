@@ -1,0 +1,30 @@
+  <!-- Edit Modal -->
+  <div class="modal fade" id="editCardModal" tabindex="-1" role="dialog" aria-labelledby="cardEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+       <div class="modal-content">
+          <div class="modal-header">
+             <h5 class="modal-title" id="updateCardModalLabel">Karte Berabeiten: {{editCard?.Title}}</h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+             </button>
+          </div>
+          <div class="modal-body" id="EditCardModalBody">
+             <form #editForm="ngForm">
+              <div class="form-group">
+                    <label for="Title">Titel</label>
+                    <input type="text" ngModel="{{editCard?.Title}}" name="Title" class="form-control" id="Title" placeholder="Titel" required>
+                </div>
+                <div class="form-group">
+                   <label for="Title">Titel</label>
+                   <input type="text" ngModel="{{editCard?.Title}}" name="Title" class="form-control" id="Title" aria-describedby="emailHelp" placeholder="Titel" required>
+                </div>
+  
+                <div class="modal-footer">
+                  <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Schließen</button>
+                  <button [disabled]="editForm.invalid" (click)="onEditCard(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Änderungen speichern</button>
+               </div>
+             </form>
+          </div>
+       </div>
+    </div>
+  </div>

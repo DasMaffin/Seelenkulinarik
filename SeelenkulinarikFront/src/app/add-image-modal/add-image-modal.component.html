@@ -1,0 +1,26 @@
+ <!-- Image Upload Modal -->
+ <div class="" id="imageUploadModal" tabindex="-1" role="dialog" aria-labelledby="imageUploadModalLabel" aria-hidden="true">
+   <div class="" role="document">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h5 class="modal-title" id="imageUploadModalLabel">Bild hochladen</h5>
+         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" (click)="close()">
+           <span aria-hidden="true">&times;</span>
+         </button>
+       </div>
+       <div class="modal-body">
+         <input type="file" (change)="onImageSelected($event)" required>
+         <button class="btn btn-primary" (click)="uploadImage()">Upload</button>
+         <!-- <div *ngIf="images && images.length > 0">
+          
+           <h5>Uploaded Images</h5>
+            <div class="image-container">            
+              <div *ngFor="let image of images" (click)="selectImage(image)" style="cursor: pointer;">
+                <img src="http://localhost:8080/UserImages/{{image}}" />
+              </div>
+            </div>
+         </div> TODO Look up how I wanna implement this. -->
+       </div>
+     </div>
+   </div>
+ </div>

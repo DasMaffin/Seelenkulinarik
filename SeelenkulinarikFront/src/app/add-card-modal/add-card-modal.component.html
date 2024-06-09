@@ -1,0 +1,31 @@
+<!-- Add Card Modal -->
+<div class="" id="addCardModal" tabindex="-1" role="dialog" aria-labelledby="addCardModalLabel" aria-hidden="true">
+  <div class="" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addCardModalLabel">Karte hinzufügen</h5>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" (click)="close()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="AddCardModalBody">
+        <form #addForm="ngForm" (ngSubmit)="onAddCard(addForm)">
+          <div class="form-group">
+            <label for="isbn">Titel</label>
+            <input type="text" ngModel name="Title" class="form-control" id="isbn" placeholder="Titel der Karte" required>
+          </div>
+          <div class="form-group">
+            <label for="title">Inhalt</label>
+            <input type="text" ngModel name="Body" class="form-control" id="body" placeholder="Inhalt" required>
+          </div>
+          <button type="button" class="btn btn-primary" (click)="openImageModal()">Bild auswählen</button>
+          ---{{selectedFile == null ? "its null" : "it aint null"}}...
+          <div class="modal-footer">
+            <button type="button" id="add-card-form" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+            <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Änderungen speichern</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

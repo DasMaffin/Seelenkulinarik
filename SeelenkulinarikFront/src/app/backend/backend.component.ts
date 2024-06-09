@@ -1,11 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, TemplateRef, viewChild } from '@angular/core';
 import { Card } from '../card';
-import { NgForm } from '@angular/forms';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { CardService } from '../card.service';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { MiscService } from '../misc.service';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { AddCardModalComponent } from '../add-card-modal/add-card-modal.component';
+import { DeleteCardModalComponent } from '../delete-card-modal/delete-card-modal.component';
+import { UpdateCardModalComponent } from '../update-card-modal/update-card-modal.component';
 
 @Component({
   selector: 'app-backend',
@@ -22,8 +25,6 @@ export class BackendComponent {
   public editCard!: Card | null | undefined;
   public deleteCard!: Card | null  | undefined;
 
-  selectedFile!: File;
-  selectedImage: string = "";
   images: string[] = [];
 
   // for sorting the table with all cards
@@ -34,7 +35,7 @@ export class BackendComponent {
      private authService: AuthService,
      private miscService: MiscService,
      private router: Router,
-     private http: HttpClient){}
+     private modalService: NgbModal){}
 
   ngOnInit(): void {
     if(!this.authService.isLoggedIn()){
@@ -43,27 +44,31 @@ export class BackendComponent {
     this.getCards();    
     this.loadImages();
   }
-  
+
   logout() {
     this.authService.logout();
   }
 
-  public onOpenModal(card: Card | null | undefined, mode: string): void {
-    const container = document.getElementById('main-container');
-    this.editCard = card;
-    this.deleteCard = card;
-    this.createModalOpenButton(container, mode + 'CardModal').click();
+  private addCardButton!: HTMLButtonElement;
+  private editCardButton!: HTMLButtonElement;
+  private deleteCardButton!: HTMLButtonElement;
+  
+  openAddCardModal() {
+    this.modalService.open(AddCardModalComponent, { ariaLabelledBy: 'modal-basic-title'});
+
+    // const modalRef: NgbModalRef = this.modalService.open(AddCardModalComponent, { ariaLabelledBy: 'modal-basic-title'});
+    // modalRef.componentInstance.cardAdded.subscribe(
+    // () => {
+    //   this.getCards();
+    // });
   }
 
-  private createModalOpenButton(container: HTMLElement | null, mode: string): HTMLButtonElement{
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.style.display = 'none';
-    button.setAttribute('data-toggle', 'modal');
-    button.setAttribute('data-target', '#' + mode);    
-    container?.appendChild(button);
+  openDeleteCardModal(){
+    this.modalService.open(DeleteCardModalComponent, { ariaLabelledBy: 'modal-basic-title'});    
+  }
 
-    return button;
+  openEditCardModal(){
+    this.modalService.open(UpdateCardModalComponent, { ariaLabelledBy: 'modal-basic-title'});    
   }
 
   sortTable(column: string) {
@@ -105,113 +110,14 @@ export class BackendComponent {
     );
   }
 
-  public onAddCard(addForm: NgForm): void{
-    document.getElementById('add-card-form')?.click();
-
-    this.cleanUp('AddCardModalBody');
-
-    this.cardService.addCard(addForm.value).subscribe(
-    (response: Card) => {
-      console.log(response);
-      this.getCards();
-    },
-    (error: HttpErrorResponse) => {
-      alert(error.message)
-    });
-  }
-
-  public onEditCard(card: Card): void{
-    this.cardService.updateCard(card).subscribe(
-    (response: Card) => {
-      console.log(response);
-      this.getCards();
-    },
-    (error: HttpErrorResponse) => {
-      alert(error.message)
-    });
-  }
-
-  public onDeleteCard(Id: String): void{
-    this.cardService.deleteCard(Id).subscribe(
-      ()=>{
-        this.getCards();
-        alert("Card has been deleted!");
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-      }
-    );
-  }
-
-  // Clean any modal's data so it is empty on re-open.
-  public cleanUp(modal: string): void{
-    const inputFields = document.getElementById(modal)?.querySelectorAll('input, select');
-    if(inputFields == null) alert("No Inputs");
-    if (inputFields) 
-    {
-      inputFields.forEach((input: Element) => 
-      {
-        if (input.tagName.toLowerCase() === 'input') {
-          (input as HTMLInputElement).value = '';
-        } else if (input.tagName.toLowerCase() === 'select') {
-          const selectElement = input as HTMLSelectElement;
-          selectElement.selectedIndex = -1;
-        }
-      });
-    }
-  }
-
-  public openImageModal(): void {
-    const container = document.getElementById('main-container');
-    this.createModalOpenButton(container, 'imageUploadModal').click();
-
-    // TODO Hide addCardModal
-  }
-
-  public reopenAddCardModal(): void {
-    const container = document.getElementById('main-container');
-    this.createModalOpenButton(container, 'addCardModal').click();
-
-    // TODO Hide imageUploadModal
-  }
-
-  public onImageSelected(event: any): void {
-    this.selectedFile = event.target.files[0];
-  }
-
-  public uploadImage(): void {
-    this.miscService.UploadImage(this.selectedFile).subscribe(
-      response => {
-        if (typeof response === 'string') {
-          console.log('Upload successful: ', response);
-        } else {
-          console.log('Unexpected response type: ', response);
-        }
-
-        this.loadImages();
-      },
-      error => {
-        console.error('Upload error: ', error);
-      }
-    );
-  }
-
   public loadImages(): void {
     this.miscService.getImages().subscribe(
       response => {
         this.images = JSON.parse(response);
-        console.log(this.images);
       },
       error => {
         console.error(error);
       }
     );
-  }
-
-  public selectImage(imageUrl: string): void {
-    // Handle the logic to use the selected image URL in the add card modal
-    this.selectedImage = imageUrl;
-    console.log(imageUrl);
-    this.reopenAddCardModal();
   }
 }
