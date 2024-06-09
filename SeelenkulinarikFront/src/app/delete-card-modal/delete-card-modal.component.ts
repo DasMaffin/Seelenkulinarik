@@ -13,7 +13,7 @@ export class DeleteCardModalComponent {
 
   constructor(private cardService: CardService){}
 
-  public onDeleteCard(Id: String): void{
+  public onDeleteCard(Id: number): void{
     this.cardService.deleteCard(Id).subscribe(
       ()=>{
         // TODO Call event on backend to get cards: this.getCards();

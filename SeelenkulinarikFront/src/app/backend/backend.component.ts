@@ -9,6 +9,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { AddCardModalComponent } from '../add-card-modal/add-card-modal.component';
 import { DeleteCardModalComponent } from '../delete-card-modal/delete-card-modal.component';
 import { UpdateCardModalComponent } from '../update-card-modal/update-card-modal.component';
+import { BackendService } from './backend.service';
 
 @Component({
   selector: 'app-backend',
@@ -20,11 +21,6 @@ export class BackendComponent {
   public titleColumn: string = 'Title;';
   public bodyColumn: string = 'Body';
 
-  // for editing cards
-  public cards: Card[] = [];
-  public editCard!: Card | null | undefined;
-  public deleteCard!: Card | null  | undefined;
-
   images: string[] = [];
 
   // for sorting the table with all cards
@@ -35,7 +31,8 @@ export class BackendComponent {
      private authService: AuthService,
      private miscService: MiscService,
      private router: Router,
-     private modalService: NgbModal){}
+     private modalService: NgbModal,
+     public backendService: BackendService){}
 
   ngOnInit(): void {
     if(!this.authService.isLoggedIn()){
@@ -48,19 +45,13 @@ export class BackendComponent {
   logout() {
     this.authService.logout();
   }
-
-  private addCardButton!: HTMLButtonElement;
-  private editCardButton!: HTMLButtonElement;
-  private deleteCardButton!: HTMLButtonElement;
   
   openAddCardModal() {
-    this.modalService.open(AddCardModalComponent, { ariaLabelledBy: 'modal-basic-title'});
-
-    // const modalRef: NgbModalRef = this.modalService.open(AddCardModalComponent, { ariaLabelledBy: 'modal-basic-title'});
-    // modalRef.componentInstance.cardAdded.subscribe(
-    // () => {
-    //   this.getCards();
-    // });
+    const modalRef: NgbModalRef = this.modalService.open(AddCardModalComponent, { ariaLabelledBy: 'modal-basic-title'});
+    modalRef.componentInstance.cardAdded.subscribe(
+    () => {
+      this.getCards();
+    });
   }
 
   openDeleteCardModal(){
@@ -80,7 +71,7 @@ export class BackendComponent {
     }
   
     // Sort the cardss array based on the selected column and direction
-    this.cards.sort((a, b) => {
+    this.backendService.cards.sort((a, b) => {
       // Check for empty fields
       if (!a[column] && !b[column]) {
         return 0; // Both are empty, maintain their current order
@@ -102,7 +93,7 @@ export class BackendComponent {
   public getCards(): void{
     this.cardService.getCards().subscribe(
       (response: Card[]) => {
-        this.cards = response;
+        this.backendService.cards = response;
       },
       (error: HttpErrorResponse) => {
         alert(error.message);

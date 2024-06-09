@@ -46,7 +46,7 @@ export class AddImageModalComponent {
   public selectImage(imageUrl: string): void {
     // Handle the logic to use the selected image URL in the add card modal
     console.log(imageUrl);
-    let cardBuilder = new Card("", "", "", "", "");
+    let cardBuilder = new Card(0, "", "", "", ""); // TODO give correct card values
     cardBuilder.ImageURI = imageUrl;
 
     this.close(); // Go back to the add card modal

@@ -5,6 +5,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { CardService } from '../card.service';
 import { NgForm } from '@angular/forms';
 import { AddImageModalComponent } from '../add-image-modal/add-image-modal.component';
+import { BackendService } from '../backend/backend.service';
 @Component({
   selector: 'app-add-card-modal',
   templateUrl: './add-card-modal.component.html',
@@ -18,18 +19,21 @@ export class AddCardModalComponent {
   constructor(
     private activeModal: NgbActiveModal,
     private cardService: CardService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private backendService: BackendService
   ) { }
 
   public onAddCard(addForm: NgForm): void{
-    document.getElementById('add-card-form')?.click();
+    // document.getElementById('add-card-form')?.click();
 
     this.cleanUp('AddCardModalBody');
-
-    this.cardService.addCard(addForm.value).subscribe(
+    let addCard: Card = addForm.value;
+    addCard.Id = this.backendService.cards.length;
+    console.log(addCard.Id);
+    this.cardService.addCard(addCard).subscribe(
     (response: Card) => {
       console.log(response);
-      // this.cardAdded.emit();
+      this.cardAdded.emit();
     },
     (error: HttpErrorResponse) => {
       alert(error.message)

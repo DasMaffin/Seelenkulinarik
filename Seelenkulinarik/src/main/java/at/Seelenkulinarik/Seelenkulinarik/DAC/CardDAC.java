@@ -37,7 +37,6 @@ public class CardDAC {
 
     @PostMapping("/add")
     public ResponseEntity<Card> addCard(@RequestBody Card _card){
-        // _card = fillEmptyFields(_card);
         Card card = cardService.AddCard(_card);
         return new ResponseEntity<>(card, HttpStatus.OK);
     }

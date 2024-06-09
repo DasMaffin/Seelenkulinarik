@@ -45,7 +45,7 @@
                  </tr>
               </thead>
               <tbody>
-                 <tr *ngFor="let card of cards">
+                 <tr *ngFor="let card of backendService.cards">
                     <td class="truncate">{{ card.Title }}</td>
                     <td class="truncate">{{ card.Body }}</td>
                    <td>
@@ -61,7 +61,7 @@
       </div>
   
   <!-- Notification for no cards -->
-  <div *ngIf="cards?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+  <div *ngIf="backendService.cards?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
   <div class="alert alert-info" role="alert">
     <h4 class="alert-heading">KEINE KARTEN!</h4>
     <p>Es wurden keine Karten gefunden.</p>

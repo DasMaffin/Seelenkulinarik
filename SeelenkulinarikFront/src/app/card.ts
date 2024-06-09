@@ -1,5 +1,5 @@
 export class Card{
-    public Id: String;
+    public Id: number;
     public Title: String;
     public Body: String;
     public AestheticURI: String;
@@ -7,7 +7,7 @@ export class Card{
 
     [key: string]: any;
 
-    public constructor(_id: String, _title: String, _body: String, _aest: String, _imageURI: String){
+    public constructor(_id: number, _title: String, _body: String, _aest: String, _imageURI: String){
         this.Id =_id;
         this.Title = _title;
         this.Body = _body;

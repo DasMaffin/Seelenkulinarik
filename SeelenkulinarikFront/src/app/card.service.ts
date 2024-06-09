@@ -12,6 +12,7 @@ export class CardService {
   constructor(private http: HttpClient) { }
 
   public addCard(card: Card): Observable<Card>{
+    console.log(card.Id);
     return this.http.post<Card>(`${this.apiServerUrl}/card/add`, card).pipe(catchError(this.handleError));
   }
 
@@ -19,7 +20,7 @@ export class CardService {
     return this.http.put<Card>(`${this.apiServerUrl}/card/update`, card);
   }
 
-  public deleteCard(Id: String): Observable<void>{
+  public deleteCard(Id: number): Observable<void>{
       return this.http.delete<void>(`${this.apiServerUrl}/card/delete/${Id}`);
   }
 
@@ -39,6 +40,6 @@ export class CardService {
         `body was: ${error.error.message}`);
     }
     // Return an observable with a user-facing error message.
-    return throwError(() => new Error('Confirm ISBN to be correct and not already listed. '));
+    return throwError(() => new Error('An error with the unique Identifier happened!'));
   }
 }
