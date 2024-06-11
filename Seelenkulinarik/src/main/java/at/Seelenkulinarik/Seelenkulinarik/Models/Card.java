@@ -11,7 +11,7 @@ public class Card {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
-    private int id;
+    public int id;
 
     public String Title;
     public String Body;

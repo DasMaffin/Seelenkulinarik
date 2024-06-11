@@ -19,25 +19,21 @@ export class AddCardModalComponent {
   constructor(
     private activeModal: NgbActiveModal,
     private cardService: CardService,
-    private modalService: NgbModal,
-    private backendService: BackendService
+    private modalService: NgbModal
   ) { }
 
   public onAddCard(addForm: NgForm): void{
-    // document.getElementById('add-card-form')?.click();
-
     this.cleanUp('AddCardModalBody');
     let addCard: Card = addForm.value;
-    addCard.Id = this.backendService.cards.length;
-    console.log(addCard.Id);
+    addCard.id = 0; // With an ID of 0 the database handles ID generation itself. It also handles it itself if the ID doesnt exist yet. 0 never exists because ID generation starts at 1. If the ID DOES exist it will override that entry
     this.cardService.addCard(addCard).subscribe(
     (response: Card) => {
-      console.log(response);
       this.cardAdded.emit();
     },
     (error: HttpErrorResponse) => {
       alert(error.message)
     });
+    this.close();
   }
 
   // Clean any modal's data so it is empty on re-open.

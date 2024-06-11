@@ -1,18 +1,18 @@
   <!-- Delete Modal -->
-  <div class="modal fade" id="deleteCardModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+  <div class="" id="deleteCardModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+    <div class="" role="document">
        <div class="modal-content">
           <div class="modal-header">
              <h5 class="modal-title" id="deleteModelLabel">Karte entfernen</h5>
-             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" (click)="close()">
              <span aria-hidden="true">&times;</span>
              </button>
           </div>
           <div class="modal-body">
-             <p>Bist du sicher, dass du folgende Karte entfernen möchtest: {{deleteCard?.Title}}?</p>
+             <p>Bist du sicher, dass du folgende Karte entfernen möchtest: {{backendService.deleteCard?.Title}}?</p>
              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Nein</button>
-                <button (click)="deleteCard != null && deleteCard.Id != null && onDeleteCard(deleteCard.Id)" class="btn btn-danger" data-dismiss="modal">Ja</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="close()">Nein</button>
+                <button (click)="backendService.deleteCard != null && backendService.deleteCard.id != null && onDeleteCard(backendService.deleteCard.id)" class="btn btn-danger" data-dismiss="modal">Ja {{backendService.deleteCard}}, {{backendService.deleteCard?.id}}</button>
              </div>
           </div>
        </div>

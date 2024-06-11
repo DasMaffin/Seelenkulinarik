@@ -12,7 +12,7 @@ export class CardService {
   constructor(private http: HttpClient) { }
 
   public addCard(card: Card): Observable<Card>{
-    console.log(card.Id);
+    console.log(card.id);
     return this.http.post<Card>(`${this.apiServerUrl}/card/add`, card).pipe(catchError(this.handleError));
   }
 

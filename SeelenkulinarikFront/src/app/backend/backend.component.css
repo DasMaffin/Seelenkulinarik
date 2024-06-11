@@ -29,7 +29,10 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 12px;
 }
 a {
-    color: #707070;
+    color: #fff;
+}
+a:hover{
+  color: #909090;
 }
 .no-border{
     border-bottom: none;
@@ -144,4 +147,20 @@ table {
     width: 100px;
     height: auto; /* Let the height adjust to maintain the aspect ratio */
 }
-
+/* Zebra striping for table rows */
+#sortableTable tbody tr:nth-child(odd) {
+  background-color: #808080; /* Light gray color for odd rows */
+}
+#sortableTable tbody tr:nth-child(even) {
+  background-color: #b0b0b0; /* White color for even rows */
+}
+tbody
+{
+  color: #f9f9f9;
+}
+#sortableTable, #sortableTable th, #sortableTable td {
+  border: 1px solid #000000; /* Black border color */
+}
+#sortableTable {
+  border-collapse: collapse; /* Ensure borders don't overlap */
+}

@@ -8,21 +8,21 @@
     <div class="collapse navbar-collapse" id="navbarColor02">
        <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link btn" (click)="openAddCardModal()">Karte hinzufügen<span class="sr-only">(current)</span></a>
+          <a class="nav-link btn" (click)="openAddCardModal()">Karte hinzufügen<span class="sr-only"></span></a>
        </li>
        <li class="nav-item active">
      </li>
        </ul>
     </div>
-    <button (click)="logout()">Logout</button>
+    <a class="nav-link btn" (click)="logout()">Logout</a>
   </nav>
   <div class="container" id="main-container">
      <br>
-      <div class="row">
-        
+      <div class="row">        
            <table id = sortableTable>
               <thead>
                  <tr>
+                  <th>ID</th>
                     <th (click)="sortTable(titleColumn)">
                        Titel 
                        <span class="arrow-stack">
@@ -46,12 +46,13 @@
               </thead>
               <tbody>
                  <tr *ngFor="let card of backendService.cards">
+                    <td class="truncate">{{ card.id }}</td>
                     <td class="truncate">{{ card.Title }}</td>
                     <td class="truncate">{{ card.Body }}</td>
                    <td>
                     <div class="float-left btn-group btn-group-sm">
-                       <a  (click)="openEditCardModal()" class="btn btn-primary tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
-                       <a  (click)="openDeleteCardModal()" class="btn btn-secondary tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-times"></i></a>
+                       <a  (click)="openEditCardModal(card)" class="btn btn-primary tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil">Ändern</i> </a>
+                       <a  (click)="openDeleteCardModal(card)" class="btn btn-secondary tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-times">Löschen</i></a>
                     </div>
                    </td>
                  </tr>

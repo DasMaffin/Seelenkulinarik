@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Card } from '../card';
 import { CardService } from '../card.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { BackendService } from '../backend/backend.service';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-delete-card-modal',
@@ -9,19 +11,28 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrl: './delete-card-modal.component.css'
 })
 export class DeleteCardModalComponent {
-  public deleteCard!: Card | null  | undefined;
-
-  constructor(private cardService: CardService){}
+  @Output() cardAdded = new EventEmitter<void>();
+  
+  constructor(
+    private cardService: CardService,
+    private activeModal: NgbActiveModal,
+    public backendService: BackendService
+  ){}
 
   public onDeleteCard(Id: number): void{
     this.cardService.deleteCard(Id).subscribe(
       ()=>{
-        // TODO Call event on backend to get cards: this.getCards();
+        this.cardAdded.emit();
         alert("Card has been deleted!");
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
       }
     );
+    this.close();
+  }
+  
+  close() {
+    this.activeModal.close();
   }
 }

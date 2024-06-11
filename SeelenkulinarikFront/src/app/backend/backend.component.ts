@@ -18,7 +18,7 @@ import { BackendService } from './backend.service';
 })
 export class BackendComponent {
   // Just used as constant values.
-  public titleColumn: string = 'Title;';
+  public titleColumn: string = 'Title';
   public bodyColumn: string = 'Body';
 
   images: string[] = [];
@@ -54,12 +54,22 @@ export class BackendComponent {
     });
   }
 
-  openDeleteCardModal(){
-    this.modalService.open(DeleteCardModalComponent, { ariaLabelledBy: 'modal-basic-title'});    
+  openDeleteCardModal(card: Card){
+    this.backendService.deleteCard = card; 
+    const modalRef: NgbModalRef = this.modalService.open(DeleteCardModalComponent, { ariaLabelledBy: 'modal-basic-title'});
+    modalRef.componentInstance.cardAdded.subscribe(
+    () => {
+      this.getCards();
+    });
   }
 
-  openEditCardModal(){
-    this.modalService.open(UpdateCardModalComponent, { ariaLabelledBy: 'modal-basic-title'});    
+  openEditCardModal(card: Card){
+    this.backendService.editCard = card;
+    const modalRef: NgbModalRef = this.modalService.open(UpdateCardModalComponent, { ariaLabelledBy: 'modal-basic-title'});
+    modalRef.componentInstance.cardAdded.subscribe(
+      () => {
+        this.getCards();
+      });
   }
 
   sortTable(column: string) {
