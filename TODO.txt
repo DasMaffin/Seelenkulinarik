@@ -1,0 +1,3 @@
+TODO:
+Add Line breaks in the cards.
+Fix the frontend lol

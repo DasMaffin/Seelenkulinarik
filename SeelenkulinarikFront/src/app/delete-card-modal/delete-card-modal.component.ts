@@ -23,7 +23,7 @@ export class DeleteCardModalComponent {
     this.cardService.deleteCard(Id).subscribe(
       ()=>{
         this.cardAdded.emit();
-        alert("Card has been deleted!");
+        alert("Karte wurde erfolgreich gelöscht!");
       },
       (error: HttpErrorResponse) => {
         alert(error.message);

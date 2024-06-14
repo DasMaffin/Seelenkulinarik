@@ -21,7 +21,6 @@ export class BackendComponent {
   public titleColumn: string = 'Title';
   public bodyColumn: string = 'Body';
 
-  images: string[] = [];
 
   // for sorting the table with all cards
   sortColumn: string = ''; // Store the currently sorted column
@@ -39,7 +38,6 @@ export class BackendComponent {
       this.router.navigate(['/login']);
     }
     this.getCards();    
-    this.loadImages();
   }
 
   logout() {
@@ -107,17 +105,6 @@ export class BackendComponent {
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
-      }
-    );
-  }
-
-  public loadImages(): void {
-    this.miscService.getImages().subscribe(
-      response => {
-        this.images = JSON.parse(response);
-      },
-      error => {
-        console.error(error);
       }
     );
   }

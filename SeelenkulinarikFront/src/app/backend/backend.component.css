@@ -128,25 +128,6 @@ table {
     margin-right: auto;
     margin-left: auto;
   }
-
-  .image-container {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.image-container > div {
-    margin-right: 10px;
-    margin-bottom: 10px;
-}
-
-.image-container > div:last-child {
-    margin-right: 0;
-}
-
-.image-container img {
-    width: 100px;
-    height: auto; /* Let the height adjust to maintain the aspect ratio */
-}
 /* Zebra striping for table rows */
 #sortableTable tbody tr:nth-child(odd) {
   background-color: #808080; /* Light gray color for odd rows */
@@ -164,3 +145,23 @@ tbody
 #sortableTable {
   border-collapse: collapse; /* Ensure borders don't overlap */
 }
+img{
+  height: 50px;
+  width: auto;
+}
+
+.truncate {
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4; /* Limit to 4 lines */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal; /* Ensure text wraps */
+  word-break: break-word; /* Handle long words */
+  max-width: 100%; /* Ensure it respects table cell width */
+  line-height: 1.2em; /* Adjust this to your line height */
+  max-height: 4.8em; /* 4 lines * line-height */
+}
+
+
+
+

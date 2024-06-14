@@ -16,13 +16,26 @@
           </div>
           <div class="form-group">
             <label for="title">Inhalt</label>
-            <input type="text" ngModel name="Body" class="form-control" id="body" placeholder="Inhalt" required>
+            <textarea ngModel name="Body" class="form-control" id="body" placeholder="Inhalt" required></textarea>
           </div>
-          <button type="button" class="btn btn-primary" (click)="openImageModal()">Bild auswählen</button>
-          ---{{selectedFile == null ? "its null" : "it aint null"}}...
-          <div class="modal-footer">
+
+          <div class="form-group button-group">
+            <div class="button-div">
+                <button type="button" class="btn btn-primary" (click)="openImageModal(0)">Hauptbild auswählen</button>
+                <img *ngIf="selectedImage != null && selectedImage != ''" class="selected-image" [src]="'http://localhost:8080/UserImages/' + selectedImage" />
+            </div>
+          </div>
+
+          <div class="form-group button-group">
+            <div class="button-div">
+                <button type="button" class="btn btn-primary" (click)="openImageModal(1)">Hintergrundbild auswählen</button>
+                <img *ngIf="selectedAesthetic != null && selectedAesthetic != ''" class="selected-image" [src]="'http://localhost:8080/UserImages/' + selectedAesthetic" />
+            </div>
+          </div>
+        
+        <div class="modal-footer">
             <button type="button" id="add-card-form" class="btn btn-secondary" data-dismiss="modal" (click)="close()">Schließen</button>
-            <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Änderungen speichern</button>
+            <button [disabled]="addForm.invalid || selectedImage == null || selectedAesthetic == null" type="submit" class="btn btn-primary">Karte hinzufügen</button>
           </div>
         </form>
       </div>

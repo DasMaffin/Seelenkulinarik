@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MiscService } from '../misc.service';
 import { Card } from '../card';
@@ -9,21 +9,26 @@ import { Card } from '../card';
   styleUrl: './add-image-modal.component.css'
 })
 export class AddImageModalComponent {
-  selectedFile: any;
+  @Output() imageSelected = new EventEmitter<string>();
+
+  selectedFile!: File;
+  images: string[] = [];
+
   constructor(
     private activeModal: NgbActiveModal,
-    private miscService: MiscService,
-    private modalService: NgbModal){}
+    private miscService: MiscService
+  ){}
+
+  ngOnInit(): void{
+    this.loadImages();
+  }
 
   public close(): void {
-
     this.activeModal.close();
   }
 
-  public onImageSelected(event: any): void {
+  public onImageSelected(event: any): void { // This is the selection from the files, when uploading a new one.
     this.selectedFile = event.target.files[0];
-    console.error(typeof(this.selectedFile));
-    console.log(this.selectedFile);
   }
 
   public uploadImage(): void {
@@ -43,12 +48,23 @@ export class AddImageModalComponent {
     );
   }
 
+  public loadImages(): void {
+    this.miscService.getImages().subscribe(
+      response => {
+        this.images = JSON.parse(response);
+      },
+      error => {
+        console.error(error);
+      }
+    );
+  }
+
   public selectImage(imageUrl: string): void {
     // Handle the logic to use the selected image URL in the add card modal
-    console.log(imageUrl);
-    let cardBuilder = new Card(0, "", "", "", ""); // TODO give correct card values
-    cardBuilder.ImageURI = imageUrl;
+    let cardBuilder = new Card(0, "", "", "", imageUrl); // TODO give correct card values
 
     this.close(); // Go back to the add card modal
+
+    this.imageSelected.emit(imageUrl);
   }
 }

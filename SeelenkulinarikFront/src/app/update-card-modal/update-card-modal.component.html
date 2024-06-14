@@ -16,12 +16,26 @@
                </div>
                <div class="form-group">
                   <label for="Body">Inhalt</label>
-                  <input type="text" ngModel="{{backendService.editCard?.Body}}" name="Body" class="form-control" id="Body" aria-describedby="body" placeholder="Inhalt" required>
+                  <textarea ngModel="{{backendService.editCard?.Body}}" name="Body" class="form-control" aria-describedby="body" placeholder="Inhalt" required></textarea>
                </div>
+
+               <div class="form-group button-group">
+                  <div class="button-div">
+                      <button type="button" class="btn btn-primary" (click)="openImageModal(0)">Hauptbild auswählen</button>
+                      <img *ngIf="backendService.editCard?.ImageURI != null && backendService.editCard?.ImageURI != ''" class="selected-image" [src]="'http://localhost:8080/UserImages/' + backendService.editCard?.ImageURI" />
+                  </div>
+                </div>
+      
+                <div class="form-group button-group">
+                  <div class="button-div">
+                      <button type="button" class="btn btn-primary" (click)="openImageModal(1)">Hintergrundbild auswählen</button>
+                      <img *ngIf="backendService.editCard?.AestheticURI != null && backendService.editCard?.AestheticURI != ''" class="selected-image" [src]="'http://localhost:8080/UserImages/' + backendService.editCard?.AestheticURI" />
+                  </div>
+                </div>
   
                <div class="modal-footer">
                   <button type="button" id="" data-dismiss="modal" class="btn btn-secondary" (click)="close()">Schließen</button>
-                  <button [disabled]="editForm.invalid" (click)="onEditCard(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Änderungen speichern</button>
+                  <button [disabled]="editForm.invalid || backendService.editCard?.ImageURI == null || backendService.editCard?.AestheticURI == null" (click)="onEditCard(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Änderungen speichern</button>
                </div>
              </form>
           </div>

@@ -19,45 +19,63 @@
   <div class="container" id="main-container">
      <br>
       <div class="row">        
-           <table id = sortableTable>
-              <thead>
-                 <tr>
-                  <th>ID</th>
-                    <th (click)="sortTable(titleColumn)">
-                       Titel 
-                       <span class="arrow-stack">
-                          <span *ngIf="sortColumn === titleColumn && sortDirection === 1" style="vertical-align: middle;">&#9650;</span>
-                          <span *ngIf="sortColumn === titleColumn && sortDirection === -1" style="vertical-align: middle;">&#9660;</span>
-                          <span *ngIf="sortColumn !== titleColumn">&#9650;</span>
-                          <span *ngIf="sortColumn !== titleColumn">&#9660;</span>
-                       </span>
-                    </th>
-                    <th (click)="sortTable(bodyColumn)">
-                        Inhalt
-                        <span class="arrow-stack">
-                           <span *ngIf="sortColumn === bodyColumn && sortDirection === 1" style="vertical-align: middle;">&#9650;</span>
-                           <span *ngIf="sortColumn === bodyColumn && sortDirection === -1" style="vertical-align: middle;">&#9660;</span>
-                           <span *ngIf="sortColumn !== bodyColumn">&#9650;</span>
-                           <span *ngIf="sortColumn !== bodyColumn">&#9660;</span>
-                        </span>
-                     </th>
-                    <th>Optionen</th>
-                 </tr>
-              </thead>
-              <tbody>
-                 <tr *ngFor="let card of backendService.cards">
-                    <td class="truncate">{{ card.id }}</td>
-                    <td class="truncate">{{ card.Title }}</td>
-                    <td class="truncate">{{ card.Body }}</td>
-                   <td>
-                    <div class="float-left btn-group btn-group-sm">
-                       <a  (click)="openEditCardModal(card)" class="btn btn-primary tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil">Ändern</i> </a>
-                       <a  (click)="openDeleteCardModal(card)" class="btn btn-secondary tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-times">Löschen</i></a>
-                    </div>
-                   </td>
-                 </tr>
-               </tbody>
-           </table>
+
+         <table id="sortableTable">
+            <thead>
+              <tr>
+                <th style="width: 5%;">ID</th>
+                <th style="width: 20%;" (click)="sortTable(titleColumn)">
+                  Titel 
+                  <span class="arrow-stack">
+                    <span *ngIf="sortColumn === titleColumn && sortDirection === 1" style="vertical-align: middle;">&#9650;</span>
+                    <span *ngIf="sortColumn === titleColumn && sortDirection === -1" style="vertical-align: middle;">&#9660;</span>
+                    <span *ngIf="sortColumn !== titleColumn">&#9650;</span>
+                    <span *ngIf="sortColumn !== titleColumn">&#9660;</span>
+                  </span>
+                </th>
+                <th style="width: 30%;" (click)="sortTable(bodyColumn)">
+                  Inhalt
+                  <span class="arrow-stack">
+                    <span *ngIf="sortColumn === bodyColumn && sortDirection === 1" style="vertical-align: middle;">&#9650;</span>
+                    <span *ngIf="sortColumn === bodyColumn && sortDirection === -1" style="vertical-align: middle;">&#9660;</span>
+                    <span *ngIf="sortColumn !== bodyColumn">&#9650;</span>
+                    <span *ngIf="sortColumn !== bodyColumn">&#9660;</span>
+                  </span>
+                </th>
+                <th style="width: 15%;">Bild</th>
+                <th style="width: 15%;">Hintergrundbild</th>
+                <th style="width: 15%;">Optionen</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let card of backendService.cards">
+                <td>{{ card.id }}</td>
+                <td class="truncate">{{ card.Title }}</td>
+                <td class="truncate">{{ card.Body }}</td>
+                <td>
+                  <a href="http://localhost:8080/UserImages/{{card.ImageURI}}" target="_blank">
+                    <img *ngIf="card.ImageURI != null && card.ImageURI != ''" class="selected-image" [src]="'http://localhost:8080/UserImages/' + card.ImageURI"/>
+                  </a>
+                </td>
+                <td>
+                  <a href="http://localhost:8080/UserImages/{{card.AestheticURI}}" target="_blank">
+                    <img *ngIf="card.AestheticURI != null && card.AestheticURI != ''" class="selected-image" [src]="'http://localhost:8080/UserImages/' + card.AestheticURI"/>
+                  </a>
+                </td>
+                <td>
+                  <div class="float-left btn-group btn-group-sm">
+                    <a (click)="openEditCardModal(card)" class="btn btn-primary tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Edit">
+                      <i class="fa fa-pencil">Ändern</i>
+                    </a>
+                    <a (click)="openDeleteCardModal(card)" class="btn btn-secondary tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Delete">
+                      <i class="fa fa-times">Löschen</i>
+                    </a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
         </div>
       </div>
   

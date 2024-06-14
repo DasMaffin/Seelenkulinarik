@@ -12,7 +12,7 @@
              <p>Bist du sicher, dass du folgende Karte entfernen möchtest: {{backendService.deleteCard?.Title}}?</p>
              <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="close()">Nein</button>
-                <button (click)="backendService.deleteCard != null && backendService.deleteCard.id != null && onDeleteCard(backendService.deleteCard.id)" class="btn btn-danger" data-dismiss="modal">Ja {{backendService.deleteCard}}, {{backendService.deleteCard?.id}}</button>
+                <button (click)="backendService.deleteCard != null && backendService.deleteCard.id != null && onDeleteCard(backendService.deleteCard.id)" class="btn btn-danger" data-dismiss="modal">Ja</button>
              </div>
           </div>
        </div>
