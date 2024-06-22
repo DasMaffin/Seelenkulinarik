@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, QueryList, ViewChildren, ChangeDetectorRef } from '@angular/core';
 import { Card } from '../card';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CardService } from '../card.service';
@@ -8,12 +8,15 @@ import { CardService } from '../card.service';
   templateUrl: './index.component.html',
   styleUrl: './index.component.css'
 })
-export class IndexComponent {
+export class IndexComponent implements AfterViewInit {
   @ViewChildren('scrollDiv') divs!: QueryList<ElementRef>;
+  @ViewChildren('card') cardDivs!: QueryList<ElementRef>;
   divElements: HTMLElement[] = [];
+  // cardDivElements: HTMLElement[] = [];
   cards: Card[] = [];
+  currentIndex: number = 0;
   
-  constructor(private cardService: CardService){}
+  constructor(private cardService: CardService, private cdr: ChangeDetectorRef){}
 
   ngOnInit(): void{
     this.getCards();
@@ -21,6 +24,18 @@ export class IndexComponent {
 
   ngAfterViewInit(){
     this.divElements = this.divs.map(div => div.nativeElement);
+    // this.cardDivElements = this.cardDivs.map(div => div.nativeElement);
+    this.showCard(this.currentIndex);
+  }
+
+  showCard(index: number) {
+    if(this.cardDivs && this.cardDivs.length > 0){
+
+      this.cardDivs.forEach((card, i) => {
+        const cardElement = card.nativeElement as HTMLElement;
+        cardElement.classList.toggle('active', i === index);
+      });
+    }
   }
 
   @HostListener('wheel', ['$event'])
@@ -56,6 +71,8 @@ export class IndexComponent {
     this.cardService.getCards().subscribe(
       (response: Card[]) => {
         this.cards = response;
+        this.cdr.detectChanges();
+        this.showCard(this.currentIndex);
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -64,11 +81,13 @@ export class IndexComponent {
   }
 
   nextSection() {
-    throw new Error('Method not implemented.');
+    this.currentIndex = (this.currentIndex + 1) % this.cards.length;
+    this.showCard(this.currentIndex);
   }
 
   previousSection() {
-    throw new Error('Method not implemented.');
+    this.currentIndex = (this.currentIndex - 1 + this.cards.length) % this.cards.length;
+    this.showCard(this.currentIndex);
   }
   title = 'SeelenkulinarikFront';
 }

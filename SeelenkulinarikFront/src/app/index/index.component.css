@@ -1,5 +1,5 @@
 .head-section {
-    padding-top: var(--navbar-height);
+    /* padding-top: 600px; */
     background-image: url('../../assets/Img/Main Background Mountains.webp');
     background-size: cover;
     background-position: center;

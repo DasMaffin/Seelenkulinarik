@@ -10,14 +10,14 @@
 </div>
 
 <div class="info-section" #scrollDiv>
-    <div class="card active" *ngFor="let card of cards" #card>
-        <img src="{{ card.ImageURI }}" class="card-mainImg"/> <!-- ../assets/Img/Cards/Olpererer.webp -->
+    <div class="card" *ngFor="let card of cards" #card>
+        <img src="http://localhost:8080/UserImages/{{card.ImageURI}}" class="card-mainImg"/>
         <div class="card-mainDiv">
             <h1>{{ card.Title }}</h1>
             <p>{{ card.Body }}</p>
         </div>
     </div>
-    <!-- <div class="background left-background"></div> -->
+    <div class="background left-background"></div>
     <div class="arrow left-arrow" (click)="previousSection()" *ngIf="cards.length > 1">
         <div class="arrow-text">&#10094;</div>
     </div>
