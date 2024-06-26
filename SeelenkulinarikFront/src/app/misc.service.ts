@@ -8,7 +8,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 export class MiscService {
   constructor(private http: HttpClient) { }
   
-  private apiServerUrl = 'http://localhost:8080';
+  private apiServerUrl = 'http://www.seelenkulinarik.at:8080';
   
   public UploadImage(file: File): Observable<any>{
     console.log(file);

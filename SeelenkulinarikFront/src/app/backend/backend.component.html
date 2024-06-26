@@ -53,13 +53,13 @@
                 <td class="truncate">{{ card.Title }}</td>
                 <td class="truncate">{{ card.Body }}</td>
                 <td>
-                  <a href="http://localhost:8080/UserImages/{{card.ImageURI}}" target="_blank">
-                    <img *ngIf="card.ImageURI != null && card.ImageURI != ''" class="selected-image" [src]="'http://localhost:8080/UserImages/' + card.ImageURI"/>
+                  <a href="http://www.seelenkulinarik.at:8080/UserImages/{{card.ImageURI}}" target="_blank">
+                    <img *ngIf="card.ImageURI != null && card.ImageURI != ''" class="selected-image" [src]="'http://www.seelenkulinarik.at:8080/UserImages/' + card.ImageURI"/>
                   </a>
                 </td>
                 <td>
-                  <a href="http://localhost:8080/UserImages/{{card.AestheticURI}}" target="_blank">
-                    <img *ngIf="card.AestheticURI != null && card.AestheticURI != ''" class="selected-image" [src]="'http://localhost:8080/UserImages/' + card.AestheticURI"/>
+                  <a href="http://www.seelenkulinarik.at:8080/UserImages/{{card.AestheticURI}}" target="_blank">
+                    <img *ngIf="card.AestheticURI != null && card.AestheticURI != ''" class="selected-image" [src]="'http://www.seelenkulinarik.at:8080/UserImages/' + card.AestheticURI"/>
                   </a>
                 </td>
                 <td>

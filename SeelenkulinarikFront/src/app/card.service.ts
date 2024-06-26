@@ -7,7 +7,7 @@ import { Observable, catchError, throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class CardService {
-  private apiServerUrl = 'http://localhost:8080';
+  private apiServerUrl = 'http://www.seelenkulinarik.at:8080';
 
   constructor(private http: HttpClient) { }
 

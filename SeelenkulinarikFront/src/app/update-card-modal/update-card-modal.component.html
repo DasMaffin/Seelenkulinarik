@@ -22,14 +22,14 @@
                <div class="form-group button-group">
                   <div class="button-div">
                       <button type="button" class="btn btn-primary" (click)="openImageModal(0)">Hauptbild auswählen</button>
-                      <img *ngIf="backendService.editCard?.ImageURI != null && backendService.editCard?.ImageURI != ''" class="selected-image" [src]="'http://localhost:8080/UserImages/' + backendService.editCard?.ImageURI" />
+                      <img *ngIf="backendService.editCard?.ImageURI != null && backendService.editCard?.ImageURI != ''" class="selected-image" [src]="'http://www.seelenkulinarik.at:8080/UserImages/' + backendService.editCard?.ImageURI" />
                   </div>
                 </div>
       
                 <div class="form-group button-group">
                   <div class="button-div">
                       <button type="button" class="btn btn-primary" (click)="openImageModal(1)">Hintergrundbild auswählen</button>
-                      <img *ngIf="backendService.editCard?.AestheticURI != null && backendService.editCard?.AestheticURI != ''" class="selected-image" [src]="'http://localhost:8080/UserImages/' + backendService.editCard?.AestheticURI" />
+                      <img *ngIf="backendService.editCard?.AestheticURI != null && backendService.editCard?.AestheticURI != ''" class="selected-image" [src]="'http://www.seelenkulinarik.at:8080/UserImages/' + backendService.editCard?.AestheticURI" />
                   </div>
                 </div>
   
