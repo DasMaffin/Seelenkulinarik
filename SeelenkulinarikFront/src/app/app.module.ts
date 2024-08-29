@@ -15,6 +15,8 @@ import { AddCardModalComponent } from './add-card-modal/add-card-modal.component
 import { UpdateCardModalComponent } from './update-card-modal/update-card-modal.component';
 import { DeleteCardModalComponent } from './delete-card-modal/delete-card-modal.component';
 import { AddImageModalComponent } from './add-image-modal/add-image-modal.component';
+import { GdprComponent } from './gdpr/gdpr.component';
+import { TermsComponent } from './terms/terms.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,8 @@ import { AddImageModalComponent } from './add-image-modal/add-image-modal.compon
     UpdateCardModalComponent,
     DeleteCardModalComponent,
     AddImageModalComponent,
+    GdprComponent,
+    TermsComponent,
   ],
   imports: [
     BrowserModule,
