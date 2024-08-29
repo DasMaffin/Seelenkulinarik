@@ -1,0 +1,6 @@
+.content{
+    display: flex;
+    flex-direction: column; /* Stack the links vertically */
+    align-items: left;    
+    color: #F9F9F9;
+}
