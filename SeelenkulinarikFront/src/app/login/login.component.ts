@@ -14,10 +14,12 @@ export class LoginComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
   login() {
-    if (this.authService.login(this.username, this.password)) {
-      this.router.navigate(['/backend']);
-    } else {
-      alert('Invalid credentials');
-    }
+    this.authService.login(this.username, this.password).subscribe((isLoggedIn: boolean) => {
+      if (isLoggedIn) {
+        this.router.navigate(['/backend']);
+      } else {
+        alert('Invalid credentials');
+      }
+    });
   }
 }

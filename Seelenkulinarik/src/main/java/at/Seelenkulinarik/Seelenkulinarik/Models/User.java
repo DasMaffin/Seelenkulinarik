@@ -11,15 +11,19 @@ public class User implements Serializable
 
     @Id
     @Column(nullable = false)
-    public String EMail;
-    public String Name;
+    public String name;
     public String Password;
 
     //#endregion
 
     public User(){}
 
-    public User(String _email){
-        this.EMail = _email;
+    public User(String Name){
+        this.name = Name;
+    }
+
+    public User(String Name, String pw){
+        this.name = Name;
+        this.Password = pw;
     }
 }

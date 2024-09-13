@@ -1,17 +1,17 @@
 .head-section {
     /* padding-top: 600px; */
-    background-image: url('http://www.seelenkulinarik.at:8080/AssetImages/assets/Img/Main Background Mountains.webp');    
+    background-image: url('http://www.seelenkulinarik.at:8080/AssetImages/assets/Img/Main Background Mountains.webp');   
+    background-size: cover;
+    background-position: center; 
 }
 .head-content{
     /* border-style:dotted; */
-    background-size: cover;
-    background-position: center;
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: top;
     justify-content: center;
     height: calc(100vh - var(--navbar-height));
-    margin-top: var(--navbarHeight);
+    margin-top: calc(var(--navbarHeight) + 20px);
     width: 100%;
 }
 .head-section img{
@@ -23,8 +23,9 @@
 }
 .head-section h1, p{
     /* border-style:dotted; */
+    font-weight: bold;
     text-align: center;
-    font-size: 50%;
+    font-size: 70%;
 }
 .head-section .profile-name {
     font-size: calc(1.475rem + 2.7vw);
