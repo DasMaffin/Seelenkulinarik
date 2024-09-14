@@ -52,6 +52,17 @@ public class MiscDAC
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Could not store file. Please try again!");
         }
     }
+    
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> deleteFile(@RequestParam("imageName") String imageName) {
+        try {
+            Path filePath = this.fileStorageLocation.resolve(imageName).normalize();
+            Files.deleteIfExists(filePath);
+            return ResponseEntity.ok("File deleted successfully");
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting file");
+        }
+    }
 
     @GetMapping("/images")
     public ResponseEntity<List<String>> getAllImages() {

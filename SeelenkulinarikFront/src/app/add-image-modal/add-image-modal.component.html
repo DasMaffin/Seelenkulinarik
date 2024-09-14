@@ -11,12 +11,12 @@
        <div class="modal-body">
          <input type="file" (change)="onImageSelected($event)" required>
          <button class="btn btn-primary" (click)="uploadImage()">Upload</button>
-         <div *ngIf="images && images.length > 0">
-          
+         <div *ngIf="images && images.length > 0">          
            <h5>Uploaded Images</h5>
             <div class="image-container">            
               <div *ngFor="let image of images" (click)="selectImage(image)" style="cursor: pointer;">
                 <img src="http://www.seelenkulinarik.at:8080/UserImages/{{image}}" />
+                <span class="delete-icon" (click)="confirmDelete($event, image)">X</span>
               </div>
             </div>
          </div>

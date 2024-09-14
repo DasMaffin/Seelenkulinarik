@@ -14,12 +14,12 @@
     </div>
 </div>
 
-<div class="info-section" #scrollDiv>
+<div class="info-section" #scrollDiv [ngStyle]="{'background-image': 'url(http://www.seelenkulinarik.at:8080/UserImages/' + currentCard?.AestheticURI + ')'}">
     <div class="card" *ngFor="let card of cards" #card>
         <img src="http://www.seelenkulinarik.at:8080/UserImages/{{card.ImageURI}}" class="card-mainImg"/>
         <div class="card-mainDiv">
             <h1>{{ card.Title }}</h1>
-            <p>{{ card.Body }}</p>
+            <p style="white-space: pre-line;">{{ card.Body }}</p>
         </div>
     </div>
     <div class="background left-background"></div>

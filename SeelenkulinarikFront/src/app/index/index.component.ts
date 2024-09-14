@@ -15,6 +15,7 @@ export class IndexComponent implements AfterViewInit {
   // cardDivElements: HTMLElement[] = [];
   cards: Card[] = [];
   currentIndex: number = 0;
+  currentCard!: Card;
   
   constructor(private cardService: CardService, private cdr: ChangeDetectorRef){}
 
@@ -30,7 +31,7 @@ export class IndexComponent implements AfterViewInit {
 
   showCard(index: number) {
     if(this.cardDivs && this.cardDivs.length > 0){
-
+      this.currentCard = this.cards[index];
       this.cardDivs.forEach((card, i) => {
         const cardElement = card.nativeElement as HTMLElement;
         cardElement.classList.toggle('active', i === index);
@@ -40,11 +41,21 @@ export class IndexComponent implements AfterViewInit {
 
   @HostListener('wheel', ['$event'])
   onWheel(event: WheelEvent) {
-    event.preventDefault(); // Prevent default scrolling behavior
+    const hoveredElement = event.target as HTMLElement;
+    const card = hoveredElement.closest('.card');
+    
+    console.error("Not Implemented properly, buggy as all heck :(");
 
+    if (card) {
+      return;
+    }
+    this.handleOuterScroll(event);
+  }
+
+  handleOuterScroll(event: WheelEvent) {
     const deltaY = Math.sign(event.deltaY); // Get direction of scroll
     const currentIndex = this.getCurrentIndex();
-
+  
     if (deltaY === -1 && currentIndex > 0) {
       this.scrollDivIntoView(currentIndex - 1);
     } else if (deltaY === 1 && currentIndex < this.divElements.length - 1) {

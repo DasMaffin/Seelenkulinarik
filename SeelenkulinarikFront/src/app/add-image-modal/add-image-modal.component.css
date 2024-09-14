@@ -8,6 +8,12 @@
     margin-bottom: 10px;
 }
 
+.image-container > div {
+    margin-right: 10px;
+    margin-bottom: 10px;
+    position: relative; /* Ensures the delete icon is positioned relative to the individual div */
+}
+
 .image-container > div:last-child {
     margin-right: 0;
 }
@@ -15,4 +21,31 @@
 .image-container img {
     width: 100px;
     height: auto; /* Let the height adjust to maintain the aspect ratio */
+    object-fit: cover;
 }
+
+.image-wrapper {
+    display: inline-block;
+    position: relative;
+    margin: 5px;
+    width: 100px; /* Ensure the wrapper has the same size as the image */
+    height: 100px;
+}
+
+.delete-icon {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: red;
+    color: white;
+    padding: 2px 5px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 14px;
+    z-index: 1; /* Ensure the delete icon stays above the image */
+}
+
+.delete-icon:hover {
+    background-color: darkred;
+}
+  

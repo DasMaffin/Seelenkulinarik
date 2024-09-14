@@ -31,4 +31,8 @@ export class MiscService {
 
     return this.http.get<string>(`${this.apiServerUrl}/misc/images`, options);
   }
+
+  deleteImage(imageName: string): Observable<any> {
+    return this.http.delete(`${this.apiServerUrl}/misc/delete?imageName=${imageName}`, { responseType: 'text' });
+  }
 }

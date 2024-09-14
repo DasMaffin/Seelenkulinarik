@@ -35,7 +35,8 @@ export class AddImageModalComponent {
     this.miscService.UploadImage(this.selectedFile).subscribe(
       response => {
         if (typeof response === 'string') {
-          console.log('Upload successful: ', response);
+          this.loadImages();
+          alert("Upload erfolgreich!")
         } else {
           console.log('Unexpected response type: ', response);
         }
@@ -66,5 +67,26 @@ export class AddImageModalComponent {
     this.close(); // Go back to the add card modal
 
     this.imageSelected.emit(imageUrl);
+  }
+
+  confirmDelete(event: Event, image: string): void {
+    event.stopPropagation(); // Prevent image selection event
+
+    const confirmed = confirm('Bist du dir sicher dieses Bild löschen zu wollen?');
+    if (confirmed) {
+      this.deleteImage(image);
+    }
+  }
+
+  deleteImage(image: string): void {
+    this.miscService.deleteImage(image).subscribe(
+      response => {
+        alert('Bild erfolgreich gelöscht');
+        this.loadImages(); // Reload the images after deletion
+      },
+      error => {
+        console.error('Löschen error: ', error);
+      }
+    );
   }
 }

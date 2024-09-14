@@ -1,9 +1,6 @@
 TODO:
-Add Line breaks in the cards.
 Fix the frontend lol
-    1. Main div needs to be off set by the navbar.
     2. Cards need to be shown in the intended way.
-Make the backend login secure
 
 Domain
 Webhost/Datenbank
@@ -25,6 +22,3 @@ Total: 750€ - 1000€ Arbeitskosten
 
 
 Upload button no feedback (Bild hochladen)
-Absätze richtig auslesen
-Hintergrundbild anzeigen
-Fußzeile
