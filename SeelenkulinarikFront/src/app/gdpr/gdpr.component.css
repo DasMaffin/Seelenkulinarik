@@ -3,4 +3,5 @@
     flex-direction: column; /* Stack the links vertically */
     align-items: left;    
     color: #F9F9F9;
+    font-size: 20px;
 }

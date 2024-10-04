@@ -1,6 +1,4 @@
 TODO:
-Fix the frontend lol
-    2. Cards need to be shown in the intended way.
 
 Domain
 Webhost/Datenbank
@@ -20,5 +18,3 @@ Kontakt - simple e-mail form. - 100€
 
 Total: 750€ - 1000€ Arbeitskosten
 
-
-Upload button no feedback (Bild hochladen)

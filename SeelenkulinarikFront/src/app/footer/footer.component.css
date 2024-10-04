@@ -49,4 +49,5 @@
   .footer{    
     height: calc(100vh - var(--navbar-height));    
     color: #F9F9F9;
+    font-size: 25px;
   }

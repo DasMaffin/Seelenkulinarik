@@ -15,7 +15,10 @@ export class IndexComponent implements AfterViewInit {
   // cardDivElements: HTMLElement[] = [];
   cards: Card[] = [];
   currentIndex: number = 0;
-  currentCard!: Card;
+
+
+  backgroundImage: string = "http://www.seelenkulinarik.at:8080/UserImages/1726394093447_schwarz gold transparenz 40^LLL schräg von links oben nach rechts unten.jpg";
+
   
   constructor(private cardService: CardService, private cdr: ChangeDetectorRef){}
 
@@ -25,13 +28,12 @@ export class IndexComponent implements AfterViewInit {
 
   ngAfterViewInit(){
     this.divElements = this.divs.map(div => div.nativeElement);
-    // this.cardDivElements = this.cardDivs.map(div => div.nativeElement);
     this.showCard(this.currentIndex);
   }
 
   showCard(index: number) {
     if(this.cardDivs && this.cardDivs.length > 0){
-      this.currentCard = this.cards[index];
+      this.backgroundImage = "http://www.seelenkulinarik.at:8080/UserImages/" + this.cards[index].AestheticURI;
       this.cardDivs.forEach((card, i) => {
         const cardElement = card.nativeElement as HTMLElement;
         cardElement.classList.toggle('active', i === index);
@@ -93,11 +95,15 @@ export class IndexComponent implements AfterViewInit {
 
   nextSection() {
     this.currentIndex = (this.currentIndex + 1) % this.cards.length;
+    this.backgroundImage = "http://www.seelenkulinarik.at:8080/UserImages/" + this.cards[this.currentIndex].AestheticURI;
+    this.cdr.detectChanges();
     this.showCard(this.currentIndex);
   }
 
   previousSection() {
     this.currentIndex = (this.currentIndex - 1 + this.cards.length) % this.cards.length;
+    this.backgroundImage = "http://www.seelenkulinarik.at:8080/UserImages/" + this.cards[this.currentIndex].AestheticURI;
+    this.cdr.detectChanges();
     this.showCard(this.currentIndex);
   }
   title = 'SeelenkulinarikFront';

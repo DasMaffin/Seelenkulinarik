@@ -9,16 +9,19 @@
             <p>In der Einzigartigkeit den Zauber des Augenblicks spüren,<br>
                 In Klarheit die Tiefgründigkeit und den Wachstum leben,<br>            
                 Als Lohn die Lebensfreude spüren,<br>            
-                Es ist gut, genauso wie es kommt.</p>
+                Es ist gut, genauso wie es kommt.<br></p>
+                <p style="font-weight: 100; font-size: 30px;">Von Claudia Lübbers</p>
         </div>
     </div>
 </div>
-
-<div class="info-section" #scrollDiv [ngStyle]="{'background-image': 'url(http://www.seelenkulinarik.at:8080/UserImages/' + currentCard?.AestheticURI + ')'}">
+<!-- 
+<div class="info-section" *ngFor="let card of cards" #scrollDiv [ngStyle]="{'background-image': 'url(http://www.seelenkulinarik.at:8080/UserImages/' + card.AestheticURI + ')'}"> -->
+    
+<div class="info-section" #scrollDiv style="background-image: url('{{backgroundImage}}')">
     <div class="card" *ngFor="let card of cards" #card>
         <img src="http://www.seelenkulinarik.at:8080/UserImages/{{card.ImageURI}}" class="card-mainImg"/>
         <div class="card-mainDiv">
-            <h1>{{ card.Title }}</h1>
+            <h1>{{ card.Title }}</h1><br>
             <p style="white-space: pre-line;">{{ card.Body }}</p>
         </div>
     </div>
